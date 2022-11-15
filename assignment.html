@@ -1,0 +1,70 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+
+const your_projectKey = 'ctbtr6j62663_j2_eb6p7r99_jjjepbj';
+params='data';
+let url = `https://open.jejudatahub.net/api/proxy/aa7t3a3tabDtbD38a87ta8ttttt388ab/${your_projectKey}?${params}`
+let testyear =0;
+
+
+
+    function fetchAPI(){
+        return fetch(url)  //
+        .then((response) => response.json()) //안에는 json 형식이긴하나 fetch를통해 문자열로 그대로 받아오기때문에 json화 시켜줌
+        .then((data)=>data) // return data 
+        .then((datas) =>{
+        console.log(datas.data);
+        showDatas(datas.data);
+    });
+    }
+
+    fetchAPI();
+
+    function showDatas(datas){
+        const ulElement = document.querySelector('#dataseries');
+        ulElement.innerHTML = datas.map((data) => setLiElement(data)).join('');
+    }
+
+    function setLiElement(data){
+        testyear = data.baseYear;
+        return `<li><h1>${data.beachName} ${data.beachType}</h1></li> <p><h3>검사항목:${data.measureItem} 수치:${data.measureValue} 판정:${data.suitabilityFlag}</h3></p>`;
+    }
+    
+
+    
+    
+    </script>
+    <style>
+        body{
+           background-image: url('https://a.cdn-hotels.com/gdcs/production123/d1230/d3ed36fc-c77c-4843-9b5e-7a5bfe80151d.jpg');
+           background-repeat: no-repeat;
+           background-size: cover;
+           color:white;
+           text-shadow: 2px 2px 2px rgb(0, 0, 0); 
+        }
+        li{
+            background-color: rgb(0, 0, 0);
+            opacity: 0.8;
+        }
+        h3{
+            background-color: rgb(48, 167, 83);
+            opacity: 0.8;
+        }
+    </style>
+    <title>json</title>
+</head>
+<body>
+    <h1 style="color:rgb(255, 230, 0)">어디가 깨끗한 해수욕장일까?</h1>
+    <h2>2021 제주도 해수욕장 수질검사(JEJU DATA HUB)</h2>
+    <ul id='dataseries'>
+        <li></li>
+    </ul>
+</body>
+</html>
